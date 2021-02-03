@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+
 public class LoginFrame extends JFrame implements ActionListener
 {
     JTextField usernameInput;
