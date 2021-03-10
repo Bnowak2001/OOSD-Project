@@ -51,12 +51,12 @@ public class Create
             e.printStackTrace();
         }
     }
-    public static void product(String productName,String productBrand,double unitPrice)
+    public static void product(String productName,String productDsc,double unitPrice)
     {
         Connection con;
         Statement stat;
         ResultSet rs;
-        String sql = "Insert into product values( null,'"+productName+"','"+productBrand+"',"+unitPrice+");";
+        String sql = "Insert into product values( null,'"+productName+"','"+productDsc+"',"+unitPrice+");";
         try {
             con= DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
             stat=con.createStatement();

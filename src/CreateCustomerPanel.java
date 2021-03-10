@@ -15,41 +15,28 @@ public class CreateCustomerPanel extends JPanel
         JButton submit = new JButton("Submit");
         JButton clear = new JButton("Clear");
         ButtonListener buttonListener = new ButtonListener();
+        this.setBackground(Color.lightGray);
+        this.setBorder(BorderFactory.createEmptyBorder(40,20,10,20));
 
         submit.addActionListener(buttonListener);
         clear.addActionListener(buttonListener);
 
-        this.setPreferredSize(new Dimension(600,400));
-        this.setBackground(Color.lightGray);
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.anchor = GridBagConstraints.LINE_END;
-        gc.weighty=1;
-        gc.weightx=1;
-        gc.gridx=0;
-        gc.gridy=0;
-        add(new JLabel("Customer Name:"),gc);
-        gc.gridy=1;
-        add(new JLabel("Customer Address"),gc);
-        gc.gridy=2;
-        add(new JLabel("Customer Phone Number:"),gc);
-        gc.gridy=3;
-        add(new JLabel("Customer Email:"),gc);
-        gc.gridy=4;
-        add(submit,gc);
+        setPreferredSize(new Dimension(800,500));
+        setLayout(new GridLayout(5,2,40,70));
 
-        gc.anchor = GridBagConstraints.LINE_START;
-        gc.gridx=1;
-        gc.gridy=0;
-        add(name,gc);
-        gc.gridy=1;
-        add(address,gc);
-        gc.gridy=2;
-        add(phoneNumber,gc);
-        gc.gridy=3;
-        add(email,gc);
-        gc.gridy=4;
-        add(clear,gc);
+        add(new JLabel("Customer Name: "));
+        add(name);
+        add(new JLabel("Customer Address: "));
+        add(address);
+        add(new JLabel("Customer Phone Number: "));
+        add(phoneNumber);
+        add(new JLabel("Customer Email: "));
+        add(email);
+        add(submit);
+        add(clear);
+
+
+
 
     }
     class ButtonListener implements ActionListener
@@ -61,7 +48,15 @@ public class CreateCustomerPanel extends JPanel
 
             if(buttonLabel.equals("Submit"))
             {
-                Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
+                System.out.println(InputVerifier.verifyCustomer(name.getText(),address.getText(),phoneNumber.getText(),email.getText()));
+                //Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
+            }
+            else if(buttonLabel.equals("Clear"))
+            {
+                name.setText("");
+                address.setText("");
+                phoneNumber.setText("");
+                email.setText("");
             }
         }
     }

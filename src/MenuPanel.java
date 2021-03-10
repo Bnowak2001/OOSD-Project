@@ -7,10 +7,14 @@ public class MenuPanel extends JPanel
 {
     MenuPanel()
     {
-        this.setPreferredSize(new Dimension(150,400));
-        this.setBackground(Color.gray);
-        this.setLayout(new GridLayout(10,1));
-        this.add(new JLabel("Menu Bar"));
+        this.setPreferredSize(new Dimension(150,500));
+        this.setLayout(new GridLayout(10,1,1,8));
+        this.setBackground(Color.GRAY);
+        this.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        JLabel l = new JLabel("Menu");
+        l.setHorizontalAlignment(JLabel.CENTER);
+        l.setForeground(Color.lightGray);
+        this.add(l);
         ButtonListener buttonListener = new ButtonListener();
 
         JButton b = new JButton("Add Customer");
@@ -21,11 +25,19 @@ public class MenuPanel extends JPanel
         this.add(b);
         b.addActionListener(buttonListener);
 
-        b = new JButton("Add Account");
+        b = new JButton("Add Product");
         this.add(b);
         b.addActionListener(buttonListener);
 
-        b = new JButton("View Accounts");
+        b = new JButton("View Products");
+        this.add(b);
+        b.addActionListener(buttonListener);
+
+        b = new JButton("Create Invoice");
+        this.add(b);
+        b.addActionListener(buttonListener);
+
+        b = new JButton("View  Invoices");
         this.add(b);
         b.addActionListener(buttonListener);
     }
@@ -48,6 +60,24 @@ public class MenuPanel extends JPanel
             {
                 b.getParent().getParent().remove(1);
                 b.getParent().getParent().add(new ViewCustomersPanel());
+                b.getParent().getParent().revalidate();
+            }
+            else if(buttonLabel.equals("Add Product"))
+            {
+                b.getParent().getParent().remove(1);
+                b.getParent().getParent().add(new CreateProductPanel());
+                b.getParent().getParent().revalidate();
+            }
+            else if(buttonLabel.equals("View Products"))
+            {
+                b.getParent().getParent().remove(1);
+                b.getParent().getParent().add(new viewProductsPanel());
+                b.getParent().getParent().revalidate();
+            }
+            else if(buttonLabel.equals("Create Invoice"))
+            {
+                b.getParent().getParent().remove(1);
+                b.getParent().getParent().add(new CreateInvoice());
                 b.getParent().getParent().revalidate();
             }
         }

@@ -26,9 +26,10 @@ public class ViewCustomersPanel extends JPanel
         phoneNumberField= new JTextField();
 
 
-        this.setPreferredSize(new Dimension(600,400));
-        this.setLayout(new FlowLayout());
+        this.setPreferredSize(new Dimension(800,500));
+        this.setLayout(new GridLayout(2,1,10,10));
         this.setBackground(Color.lightGray);
+        this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
         ListListener listListener = new ListListener();
         ButtonListener buttonListener = new ButtonListener();
@@ -39,13 +40,13 @@ public class ViewCustomersPanel extends JPanel
 
 
         JScrollPane tablepane = new JScrollPane(customers);
-        tablepane.setPreferredSize(new Dimension( 550,150));
         add(tablepane);
 
 
         JPanel p = new JPanel();
-        p.setPreferredSize(new Dimension(550,225));
-        p.setLayout(new GridLayout(6,2));
+        p.setLayout(new GridLayout(6,2,0,5));
+        p.setBackground(Color.lightGray);
+        p.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         p.add(new JLabel("Customer ID: "));
         p.add(idField);
         p.add(new JLabel("Customer Name: "));
@@ -56,7 +57,6 @@ public class ViewCustomersPanel extends JPanel
         p.add(emailField);
         p.add(new JLabel("Customer Phonenumber: "));
         p.add(phoneNumberField);
-
         JButton button = new JButton("Delete Record");
         button.addActionListener(buttonListener);
         p.add(button);
@@ -65,9 +65,7 @@ public class ViewCustomersPanel extends JPanel
         p.add(button);
         add(p);
 
-
     }
-
 
     class ListListener implements ListSelectionListener
     {
@@ -89,15 +87,22 @@ public class ViewCustomersPanel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             String buttonLabel = e.getActionCommand();
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
 
             if(buttonLabel.equals("Update Record"))
             {
                 Update.Customer(Integer.parseInt(idField.getText()),nameField.getText(),addressField.getText(),emailField.getText(),phoneNumberField.getText());
-
+               f.getContentPane().remove(1);
+               f.getContentPane().add(new ViewCustomersPanel());
+               f.revalidate();
+               //Content Pane more like constant PAIN!
             }
             else if(buttonLabel.equals("Delete Record"))
             {
                 Delete.customer(Integer.parseInt(idField.getText()));
+                f.getContentPane().remove(1);
+                f.getContentPane().add(new ViewCustomersPanel());
+                f.revalidate();
             }
         }
     }

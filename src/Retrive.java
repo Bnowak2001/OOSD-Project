@@ -39,5 +39,40 @@ public class Retrive
         }
         return results;
     }
+    public static String[][] fetchProducts()
+    {
+        Connection con;
+        Statement stat;
+        ResultSet rs;
+        String[][] results = new String[0][];
+        int i=0;
+        String sql = "Select * from Product";
+        try {
+            con= DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
+            stat=con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stat.executeQuery(sql);
+
+            rs.last();
+            String[][] temp = new String[rs.getRow()][rs.getMetaData().getColumnCount()];
+            rs.beforeFirst();
+
+            while(rs.next())
+            {
+                int i2 =0;//index used for getting the column of the 2d array
+                while(i2<rs.getMetaData().getColumnCount()){
+                    temp[i][i2]=rs.getString(i2+1);
+                    i2++;
+                }
+
+                i++;
+            }
+            results=temp;
+        }
+        catch (SQLException e)
+        {
+
+        }
+        return results;
+    }
 
 }
