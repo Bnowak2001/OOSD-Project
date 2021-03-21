@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Date;
 
 public class Create
 //this class contains all the methods for creating new entries in the database
@@ -19,17 +20,20 @@ public class Create
             e.printStackTrace();
         }
     }
-    public static void invoice(int customerId, String invoiceName)
+    public static void invoice(int customerId, Date date)
     {
         Connection con;
-        Statement stat;
+        PreparedStatement pstat;
         ResultSet rs;
-        String sql = "Insert into invoice values( null, "+customerId+",'"+invoiceName+"' );";
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        String sql = "Insert into invoice values( null,?,?,null );";
+        System.out.println(customerId);
         try {
             con= DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
-            stat=con.createStatement();
-            stat.executeUpdate(sql);
-
+           pstat = con.prepareStatement(sql);
+           pstat.setInt(1,customerId);
+           pstat.setDate(2,sqlDate);
+           pstat.execute();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -40,7 +44,7 @@ public class Create
         Connection con;
         Statement stat;
         ResultSet rs;
-        String sql = "Insert into invoicedProduct values("+invoiceId+","+productId+","+quantity+" );";
+        String sql = "Insert into invoiceproduct values("+invoiceId+","+productId+","+quantity+" );";
         try {
             con= DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
             stat=con.createStatement();

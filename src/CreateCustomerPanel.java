@@ -48,8 +48,8 @@ public class CreateCustomerPanel extends JPanel
 
             if(buttonLabel.equals("Submit"))
             {
-                System.out.println(InputVerifier.verifyCustomer(name.getText(),address.getText(),phoneNumber.getText(),email.getText()));
-                //Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
+                //System.out.println(InputVerifier.verifyCustomer(name.getText(),address.getText(),phoneNumber.getText(),email.getText()));
+                Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
             }
             else if(buttonLabel.equals("Clear"))
             {

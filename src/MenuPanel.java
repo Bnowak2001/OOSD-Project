@@ -37,7 +37,7 @@ public class MenuPanel extends JPanel
         this.add(b);
         b.addActionListener(buttonListener);
 
-        b = new JButton("View  Invoices");
+        b = new JButton("View Invoice");
         this.add(b);
         b.addActionListener(buttonListener);
     }
@@ -78,6 +78,12 @@ public class MenuPanel extends JPanel
             {
                 b.getParent().getParent().remove(1);
                 b.getParent().getParent().add(new CreateInvoice());
+                b.getParent().getParent().revalidate();
+            }
+            else if(buttonLabel.equals("View Invoice"))
+            {
+                b.getParent().getParent().remove(1);
+                b.getParent().getParent().add(new ViewInvoicePanel());
                 b.getParent().getParent().revalidate();
             }
         }
