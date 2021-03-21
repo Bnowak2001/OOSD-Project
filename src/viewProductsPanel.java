@@ -79,12 +79,16 @@ public class viewProductsPanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
+
             String buttonLabel = e.getActionCommand();
-            JButton b = (JButton) e.getSource();
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
 
             if(buttonLabel.equals("Update Record"))
             {
                // Update.Customer(Integer.parseInt(productIdField.getText()),productNameField.getText(), productDescriptionField.getText(),unitPriceField.getText());
+                f.getContentPane().remove(1);
+                f.getContentPane().add(new ViewInvoicePanel());
+                f.revalidate();
             }
             else if(buttonLabel.equals("Delete Record"))
             {

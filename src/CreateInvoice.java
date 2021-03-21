@@ -89,15 +89,16 @@ public class CreateInvoice extends JPanel
             {
                 try {
                     Date date = new SimpleDateFormat("dd/mm/yy").parse(invoiceDate.getText());
-                    Create.invoice(Integer.parseInt(String.valueOf(customers.getSelectedItem().toString().charAt(0))),date);
+                    int customerId = Integer.parseInt(customers.getSelectedItem().toString().substring(0,customers.getSelectedItem().toString().indexOf(" ")));
+                    Create.invoice(customerId,date);
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
             }
             else if(buttonLabel.equals("Add Item"))
             {
-                int temp1 = Integer.parseInt(String.valueOf(invoicePicker.getSelectedItem().toString().charAt(0)));
-                int temp2 = Integer.parseInt(String.valueOf(items.getSelectedItem().toString().charAt(0)));
+                int temp1 = Integer.parseInt(invoicePicker.getSelectedItem().toString().substring(0,invoicePicker.getSelectedItem().toString().indexOf(" ")));
+                int temp2 = Integer.parseInt(items.getSelectedItem().toString().substring(0,items.getSelectedItem().toString().indexOf(" ")));
                 Create.invoicedProduct(temp1,temp2,(Integer) quantity.getValue());
             }
             }

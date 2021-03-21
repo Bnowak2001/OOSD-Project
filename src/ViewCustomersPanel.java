@@ -91,7 +91,7 @@ public class ViewCustomersPanel extends JPanel
 
             if(buttonLabel.equals("Update Record"))
             {
-                Update.Customer(Integer.parseInt(idField.getText()),nameField.getText(),addressField.getText(),emailField.getText(),phoneNumberField.getText());
+               Update.Customer(Integer.parseInt(idField.getText()),nameField.getText(),addressField.getText(),emailField.getText(),phoneNumberField.getText());
                f.getContentPane().remove(1);
                f.getContentPane().add(new ViewCustomersPanel());
                f.revalidate();

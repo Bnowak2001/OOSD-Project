@@ -45,11 +45,20 @@ public class CreateCustomerPanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent e) {
             String buttonLabel = e.getActionCommand();
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
 
             if(buttonLabel.equals("Submit"))
             {
-                //System.out.println(InputVerifier.verifyCustomer(name.getText(),address.getText(),phoneNumber.getText(),email.getText()));
-                Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
+                try
+                {
+                    InputVerifier.verifyCustomer(name.getText(),address.getText(),phoneNumber.getText(),email.getText());
+                    Create.customer(name.getText(),address.getText(),email.getText(),phoneNumber.getText());
+                }
+                catch (MyInvalidInputException ex)
+                {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(f,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                }
             }
             else if(buttonLabel.equals("Clear"))
             {

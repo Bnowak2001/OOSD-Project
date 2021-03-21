@@ -33,4 +33,27 @@ public class Update
             e.printStackTrace();
         }
     }
+    public static void updateInvoiceValue(int invoiceId)
+    {
+        String[][] invoicedItems = Retrive.fetchProductList(invoiceId);
+        Connection con;
+        Statement stat;
+        double sum = 0;
+        for(int i = 0 ; i < invoicedItems.length ; i++)
+        {
+            double quantity = Double.parseDouble(invoicedItems[i][2]);
+            double price = Double.parseDouble(invoicedItems[i][1]);
+            sum += quantity*price;
+        }
+        String sql = "Update Invoice set InvoiceTotal = "+sum+" where InvoiceID = "+invoiceId;
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
+            stat = con.createStatement();
+            stat.executeUpdate(sql);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 }

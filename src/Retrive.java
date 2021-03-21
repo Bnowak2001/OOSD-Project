@@ -1,6 +1,4 @@
-import com.mysql.cj.protocol.Resultset;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 
 public class Retrive
@@ -145,6 +143,34 @@ public class Retrive
         catch (SQLException e)
         {
             e.printStackTrace();
+        }
+        return results;
+    }
+    public static String[] fetchInvoiceForDisplay(int invoiceID)
+    {
+        Connection con;
+        Statement stat;
+        ResultSet rs;
+        String[] results;
+        String sql = "select invoice.InvoiceID , invoice.InvoiceDate , invoice.InvoiceTotal , customer.name , customer.address , customer.email , customer.phonenumber from invoice " +
+                "inner join customer on invoice.CustomerID = customer.CustomerID where invoice.InvoiceID = "+invoiceID+" ;";
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
+            stat = con.createStatement();
+            rs = stat.executeQuery(sql);
+            results = new String[rs.getMetaData().getColumnCount()];
+            while (rs.next())
+            {
+                for( int i = 0 ; i < rs.getMetaData().getColumnCount() ; i++ )
+                {
+                    results[i] = rs.getString(i+1);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            results = null;
         }
         return results;
     }
