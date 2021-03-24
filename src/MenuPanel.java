@@ -3,8 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to create a menu side panel
+ */
 public class MenuPanel extends JPanel
 {
+    /**
+     * This is the default constructor it creates a menu panel
+     */
     MenuPanel()
     {
         this.setPreferredSize(new Dimension(150,500));
@@ -42,7 +48,9 @@ public class MenuPanel extends JPanel
         b.addActionListener(buttonListener);
     }
 
-
+    /**
+     * This is the listener for the menu panel buttons
+     */
     class ButtonListener implements ActionListener
     {
         @Override

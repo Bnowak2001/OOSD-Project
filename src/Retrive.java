@@ -1,8 +1,15 @@
 
 import java.sql.*;
 
+/**
+ * This class provides methods for Fetching records from the database
+ */
 public class Retrive
 {
+    /**
+     * Returns all the records in the customer table
+     * @return - Returns all records from the table as a 2d array
+     */
     public static String[][] fetchCustomers()//gets all data in the customers table and returns it as a 2d array
     {
         Connection con;
@@ -40,6 +47,11 @@ public class Retrive
         }
         return results;
     }
+
+    /**
+     * Returns all the records from the products table
+     * @return - Returns all the records as a 2d array
+     */
     public static String[][] fetchProducts()
     {
         Connection con;
@@ -75,6 +87,12 @@ public class Retrive
         }
         return results;
     }
+
+    /**
+     * Fetches the invoice id and date and the customer name connected to the invoice
+     * this is used for a drop down menu in the create invoice panel and view invoice panel
+     * @return - All of the records as a 2d array
+     */
     public static String[][] fetchInvoiceCustomer()
     {
         Connection con;
@@ -110,6 +128,13 @@ public class Retrive
         }
         return results;
     }
+
+    /**
+     * Fetchs all the products under an invoice
+     * used in the view invoice panel
+     * @param invoiceId - The id of the invoice for which to fetch product list
+     * @return - returns a 2d array of all products on an invoice
+     */
     public static String[][] fetchProductList(int invoiceId)
     {
         Connection con;
@@ -146,6 +171,12 @@ public class Retrive
         }
         return results;
     }
+
+    /**
+     * This method returns all the details excluding the list of products on a invoice
+     * @param invoiceID the id of invoice to fetch details for
+     * @return - a string array of all the details about the invoice
+     */
     public static String[] fetchInvoiceForDisplay(int invoiceID)
     {
         Connection con;

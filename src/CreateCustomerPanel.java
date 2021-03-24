@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to create a panel for entering new details of a customer into the database
+ */
 public class CreateCustomerPanel extends JPanel
 {
     JTextField name = new JTextField(30);
@@ -10,6 +13,9 @@ public class CreateCustomerPanel extends JPanel
     JTextField phoneNumber= new JTextField(30);
     JTextField email= new JTextField(30);
 
+    /**
+     * This is the default constructor and it creates a Jpanel with text fields for entering data into the customers table
+     */
     CreateCustomerPanel()
     {
         JButton submit = new JButton("Submit");
@@ -39,6 +45,10 @@ public class CreateCustomerPanel extends JPanel
 
 
     }
+
+    /**
+     * This class provides a listener to the buttons on the create new customer panel
+     */
     class ButtonListener implements ActionListener
     {
 

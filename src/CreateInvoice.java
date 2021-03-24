@@ -6,6 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class is used to create a panel for creating a new invoice
+ * and adding new products to existing invoices
+ */
 public class CreateInvoice extends JPanel
 {
     JComboBox customers = new JComboBox();
@@ -13,6 +17,10 @@ public class CreateInvoice extends JPanel
     JComboBox invoicePicker = new JComboBox();
     JTextField invoiceDate = new JTextField();
     JSpinner quantity = new JSpinner();
+
+    /**
+     * This is the default constructor it creates a Jpanel for creating invoices and adding items to them
+     */
     public CreateInvoice()
     {
         String[][] customerArray = Retrive.fetchCustomers();
@@ -76,6 +84,10 @@ public class CreateInvoice extends JPanel
         addItem.add(button);
         this.add(addItem);
     }
+
+    /**
+     * This class is provides a lister to the buttons in the create invoice panel
+     */
     class ButtonListener implements ActionListener
     {
 
@@ -88,7 +100,7 @@ public class CreateInvoice extends JPanel
             if(buttonLabel.equals("Create Invoice"))
             {
                 try {
-                    Date date = new SimpleDateFormat("dd/mm/yy").parse(invoiceDate.getText());
+                    Date date = new SimpleDateFormat("dd/MM/YYYY").parse(invoiceDate.getText());
                     int customerId = Integer.parseInt(customers.getSelectedItem().toString().substring(0,customers.getSelectedItem().toString().indexOf(" ")));
                     Create.invoice(customerId,date);
                 } catch (ParseException ex) {

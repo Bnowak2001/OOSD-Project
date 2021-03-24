@@ -3,12 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to create a panel for adding new products to the database
+ */
 public class CreateProductPanel extends JPanel
 {
     JTextField productName = new JTextField(30);
     JTextField productDescription = new JTextField(30);
     JTextField unitPrice = new JTextField(30);
 
+    /**
+     * This is the default constructor it creates a jpanel for adding
+     * new products into the database
+     */
     CreateProductPanel()
     {
         JButton submit = new JButton("Submit");
@@ -35,19 +42,29 @@ public class CreateProductPanel extends JPanel
 
     }
 
-
-
-
+    /**
+     * This class is used to provide a listener to the buttons on the create product panel
+     */
     class ButtonListener implements ActionListener
     {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             String buttonLabel = e.getActionCommand();
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
 
             if(buttonLabel.equals("Submit"))
             {
-                Create.product(productName.getText(),productDescription.getText(),Double.parseDouble(unitPrice.getText()));
+                try
+                {
+                    InputVerifier.verifyProduct(productName.getText(),productDescription.getText(),unitPrice.getText());
+                    Create.product(productName.getText(),productDescription.getText(),Double.parseDouble(unitPrice.getText()));
+                }
+                catch (MyInvalidInputException ex)
+                {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(f,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                }
             }
             else if(buttonLabel.equals("Clear"))
             {

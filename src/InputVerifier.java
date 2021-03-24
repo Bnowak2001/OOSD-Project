@@ -1,8 +1,19 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to verify input on customer product and invoice entries
+ */
 public class InputVerifier
 {
+    /**
+     * This method is used to verify inputs on customers it throws an exception if the input is invalid
+     * @param name - the name of the customer
+     * @param address - the address of the customer
+     * @param phoneNumber - the phone number of the customer
+     * @param email - the email address of the customer
+     * @throws MyInvalidInputException
+     */
     public static void verifyCustomer(String name,String address, String phoneNumber, String email) throws MyInvalidInputException
     {
         Pattern pat = Pattern.compile("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
@@ -16,6 +27,14 @@ public class InputVerifier
             throw new MyInvalidInputException("Invalid Email Address");
         }
     }
+
+    /**
+     * This method is used to verify inputs on products it throws an exception if the input is invalid
+     * @param productName - the name of the product
+     * @param productDesc - the description of the product
+     * @param price- the price of the product
+     * @throws MyInvalidInputException
+     */
     public static void verifyProduct(String productName,String productDesc,String price) throws MyInvalidInputException
     {
         if(productName.isEmpty()||productDesc.isEmpty()||price.isEmpty())

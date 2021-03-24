@@ -85,9 +85,21 @@ public class viewProductsPanel extends JPanel
 
             if(buttonLabel.equals("Update Record"))
             {
-               // Update.Customer(Integer.parseInt(productIdField.getText()),productNameField.getText(), productDescriptionField.getText(),unitPriceField.getText());
+                try
+                {
+                    InputVerifier.verifyProduct(productNameField.getText(),productDescriptionField.getText(),unitPriceField.getText());
+                    Update.Product(Integer.parseInt(productIdField.getText()),productNameField.getText(),productDescriptionField.getText(),Double.parseDouble(unitPriceField.getText()));
+                    f.getContentPane().remove(1);
+                    f.getContentPane().add(new viewProductsPanel());
+                    f.revalidate();
+                }
+                catch (MyInvalidInputException ex)
+                {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(f,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                }
                 f.getContentPane().remove(1);
-                f.getContentPane().add(new ViewInvoicePanel());
+                f.getContentPane().add(new viewProductsPanel());
                 f.revalidate();
             }
             else if(buttonLabel.equals("Delete Record"))
