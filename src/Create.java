@@ -46,7 +46,6 @@ public class Create
         ResultSet rs;
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         String sql = "Insert into invoice values( null,?,?,null );";
-        System.out.println(customerId);
         try {
             con= DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
            pstat = con.prepareStatement(sql);

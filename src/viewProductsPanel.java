@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to create a product viewing panel
+ */
 public class viewProductsPanel extends JPanel
 {
     JTable products;
@@ -13,6 +16,9 @@ public class viewProductsPanel extends JPanel
     JTextField productDescriptionField;
     JTextField unitPriceField;
 
+    /**
+     * The default constructor creates a view product panel
+     */
     viewProductsPanel()
     {
         this.setBackground(Color.lightGray);
@@ -30,7 +36,7 @@ public class viewProductsPanel extends JPanel
         setPreferredSize(new Dimension(800,500));
         setLayout(new GridLayout(2,1,20,20));
 
-        String[] colNames= new String[]{"ProductID","ProductName","ProductDescription","UnitPrice"};
+        String[] colNames= new String[]{"Product ID","Product Name","Product Description","Unit Price"};
         products = new JTable(Retrive.fetchProducts(),colNames);
         products.getSelectionModel().addListSelectionListener(listListener);
 
@@ -60,7 +66,10 @@ public class viewProductsPanel extends JPanel
 
     }
 
-
+    /**
+     * This class gives a listener to the jtable on the view products panel
+     * if a row on the table is clicked it will populate textboxes on the editing panel
+     */
     class ListListener implements ListSelectionListener
     {
         @Override
@@ -73,6 +82,10 @@ public class viewProductsPanel extends JPanel
             unitPriceField.setText((String) products.getValueAt(lsm.getAnchorSelectionIndex(), 3));
         }
     }
+
+    /**
+     * This class is used to provide a listener to the buttons on view products panel
+     */
     class ButtonListener implements ActionListener
     {
 
@@ -98,13 +111,17 @@ public class viewProductsPanel extends JPanel
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(f,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
                 }
-                f.getContentPane().remove(1);
-                f.getContentPane().add(new viewProductsPanel());
-                f.revalidate();
             }
             else if(buttonLabel.equals("Delete Record"))
             {
-               // Delete.customer(Integer.parseInt(idField.getText()));
+               int dialogResult = JOptionPane.showConfirmDialog(f,"Are you sure you want to delete this product it will also remove this product from all invoices");
+               if(dialogResult==0)
+               {
+                   Delete.product(Integer.parseInt(productIdField.getText()));
+                   f.getContentPane().remove(1);
+                   f.getContentPane().add(new viewProductsPanel());
+                   f.revalidate();
+               }
             }
         }
     }

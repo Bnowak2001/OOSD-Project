@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * This class is used to create a new view customers panel
+ */
 public class ViewCustomersPanel extends JPanel
 {
     JTable customers;
@@ -15,6 +17,9 @@ public class ViewCustomersPanel extends JPanel
     JTextField addressField;
     JTextField phoneNumberField;
 
+    /**
+     * The default constructor creates a new view customer panel
+     */
     public ViewCustomersPanel() {
 
         idField= new JTextField();
@@ -34,7 +39,7 @@ public class ViewCustomersPanel extends JPanel
         ListListener listListener = new ListListener();
         ButtonListener buttonListener = new ButtonListener();
 
-        String[] colNames= new String[]{"CustomerID","NAME","ADDRESS","Email","PHONENUMBER"};
+        String[] colNames= new String[]{"Customer ID","Name","Address","Email","Phone Number"};
         customers = new JTable(Retrive.fetchCustomers(),colNames);
         customers.getSelectionModel().addListSelectionListener(listListener);
 
@@ -67,6 +72,10 @@ public class ViewCustomersPanel extends JPanel
 
     }
 
+    /**
+     * This class gives a listener to the jtable on the view customers panel
+     * if a row on the table is clicked it will populate textboxes on the editing panel
+     */
     class ListListener implements ListSelectionListener
     {
         @Override
@@ -80,6 +89,10 @@ public class ViewCustomersPanel extends JPanel
 
         }
     }
+
+    /**
+     * The listener class for the buttons on the view customers panel
+     */
     class ButtonListener implements ActionListener
     {
 
@@ -91,18 +104,30 @@ public class ViewCustomersPanel extends JPanel
 
             if(buttonLabel.equals("Update Record"))
             {
-               Update.Customer(Integer.parseInt(idField.getText()),nameField.getText(),addressField.getText(),emailField.getText(),phoneNumberField.getText());
-               f.getContentPane().remove(1);
-               f.getContentPane().add(new ViewCustomersPanel());
-               f.revalidate();
-               //Content Pane more like constant PAIN!
+                try
+                {
+                    InputVerifier.verifyCustomer(nameField.getText(),addressField.getText(),phoneNumberField.getText(),emailField.getText());
+                    Update.Customer(Integer.parseInt(idField.getText()),nameField.getText(),addressField.getText(),emailField.getText(),phoneNumberField.getText());
+                    f.getContentPane().remove(1);
+                    f.getContentPane().add(new ViewCustomersPanel());
+                    f.revalidate();
+                }
+                catch (MyInvalidInputException ex)
+                {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(f,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                }
             }
             else if(buttonLabel.equals("Delete Record"))
             {
-                Delete.customer(Integer.parseInt(idField.getText()));
-                f.getContentPane().remove(1);
-                f.getContentPane().add(new ViewCustomersPanel());
-                f.revalidate();
+                int dialogResult = JOptionPane.showConfirmDialog(f,"Are you sure you want to delete this customer it will remove all invoices associated with this customer");
+                if(dialogResult==0)
+                {
+                    Delete.customer(Integer.parseInt(idField.getText()));
+                    f.getContentPane().remove(1);
+                    f.getContentPane().add(new ViewCustomersPanel());
+                    f.revalidate();
+                }
             }
         }
     }

@@ -35,7 +35,6 @@ public class Delete
     {
         Connection con;
         Statement stat;
-        ResultSet rs;
         String sql = "DELETE FROM Product WHERE productId= "+id+";";
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
@@ -45,5 +44,21 @@ public class Delete
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static void invoice(int id)
+    {
+        Connection con;
+        Statement stat;
+        String sql ="Delete from invoice where InvoiceID ="+id+";";
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost/project","root","");
+            stat = con.createStatement();
+            stat.executeUpdate(sql);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

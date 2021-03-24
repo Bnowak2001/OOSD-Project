@@ -3,10 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class is used to create the view invoice panel
+ */
 public class ViewInvoicePanel extends JPanel
 {
     JComboBox invoicePicker;
     JButton deleteInvoice;
+
+    /**
+     * The default constructor for creating a view invoice panel
+     */
     public ViewInvoicePanel()
     {
         String[][] invoiceArray = Retrive.fetchInvoiceCustomer();
@@ -27,8 +34,14 @@ public class ViewInvoicePanel extends JPanel
         this.add(new JLabel(""));
 
         deleteInvoice= new JButton("Delete Selected Invoice");
+        ButtonListener listener = new ButtonListener();
+        deleteInvoice.addActionListener(listener);
         deleteInvoice.setPreferredSize(new Dimension(250,30));
     }
+
+    /**
+     * This method is used to update the invoice on display
+     */
     public void updatePanel()
     {
         try
@@ -58,17 +71,31 @@ public class ViewInvoicePanel extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
             String buttonLabel = e.getActionCommand();
             if(buttonLabel.equals("Delete Selected Invoice"))
             {
-
+                int dialogResult = JOptionPane.showConfirmDialog(f,"Are you sure you want to remove this invoice");
+                if(dialogResult==0)
+                {
+                    Delete.invoice(Integer.parseInt(invoicePicker.getSelectedItem().toString().substring(0,invoicePicker.getSelectedItem().toString().indexOf(" "))));
+                    f.getContentPane().remove(1);
+                    f.getContentPane().add(new ViewInvoicePanel());
+                    f.revalidate();
+                }
             }
         }
     }
 
-
+    /**
+     * This class is used to create a panel for displaying details about an invoice
+     */
     class InvoiceDisplayPanel extends JPanel
     {
+        /**
+         * Creates a panel to view details about an invoice
+         * @param invoiceId - the invoice id of the invoice to be displayed
+         */
        public InvoiceDisplayPanel(int invoiceId)
        {
            this.setPreferredSize(new Dimension(760,410));
@@ -94,7 +121,7 @@ public class ViewInvoicePanel extends JPanel
            JPanel productList = new JPanel();
            productList.setLayout(new GridLayout(1,1));
            productList.setPreferredSize(new Dimension(750,250));
-           String[] tabNames = new String[]{"ProductName","SingleItemPrice","Quantity"};
+           String[] tabNames = new String[]{"Product Name","Single Item Price","Quantity"};
            JTable test = new JTable(Retrive.fetchProductList(invoiceId),tabNames);
            productList.add(new JScrollPane(test));
            this.add(productList);

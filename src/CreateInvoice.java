@@ -47,7 +47,7 @@ public class CreateInvoice extends JPanel
         invoice.add(customers);
 
         invoice.add(new JLabel("Enter Invoice Date: "));
-        invoiceDate.setToolTipText("Format: dd/mm/yyyy");
+        invoiceDate.setToolTipText("Format: dd-mm-yyyy");
         invoice.add(invoiceDate);
         JButton button = new JButton("Create Invoice");
         button.addActionListener(buttonListener);
@@ -96,14 +96,20 @@ public class CreateInvoice extends JPanel
         {
             String buttonLabel = e.getActionCommand();
             JButton b = (JButton) e.getSource();
+            JFrame f = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
 
             if(buttonLabel.equals("Create Invoice"))
             {
                 try {
-                    Date date = new SimpleDateFormat("dd/MM/YYYY").parse(invoiceDate.getText());
+                    Date date = new SimpleDateFormat("dd-MM-yyyy").parse(invoiceDate.getText());
                     int customerId = Integer.parseInt(customers.getSelectedItem().toString().substring(0,customers.getSelectedItem().toString().indexOf(" ")));
                     Create.invoice(customerId,date);
-                } catch (ParseException ex) {
+                    f.getContentPane().remove(1);
+                    f.getContentPane().add(new CreateInvoice());
+                    f.revalidate();
+                }
+                catch (ParseException ex)
+                {
                     ex.printStackTrace();
                 }
             }
@@ -113,6 +119,6 @@ public class CreateInvoice extends JPanel
                 int temp2 = Integer.parseInt(items.getSelectedItem().toString().substring(0,items.getSelectedItem().toString().indexOf(" ")));
                 Create.invoicedProduct(temp1,temp2,(Integer) quantity.getValue());
             }
-            }
         }
+    }
 }

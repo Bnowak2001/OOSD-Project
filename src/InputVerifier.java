@@ -12,7 +12,7 @@ public class InputVerifier
      * @param address - the address of the customer
      * @param phoneNumber - the phone number of the customer
      * @param email - the email address of the customer
-     * @throws MyInvalidInputException
+     * @throws MyInvalidInputException throws invalid input
      */
     public static void verifyCustomer(String name,String address, String phoneNumber, String email) throws MyInvalidInputException
     {
@@ -33,7 +33,7 @@ public class InputVerifier
      * @param productName - the name of the product
      * @param productDesc - the description of the product
      * @param price- the price of the product
-     * @throws MyInvalidInputException
+     * @throws MyInvalidInputException throws invalid input
      */
     public static void verifyProduct(String productName,String productDesc,String price) throws MyInvalidInputException
     {
